@@ -6,8 +6,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="assets/reset.css">
     <link rel="stylesheet" type="text/css" href="assets/style.css">
+    <link href="https://fonts.googleapis.com/css?family=BioRhyme+Expanded|Jua" rel="stylesheet">
 
     <body>
+            <body background="assets\GifTastic.png">
 
         <div class="container"></div>
         <h1>GifTastic</h1>
@@ -18,7 +20,14 @@
 
             <!-- Button triggers new movie to be added -->
             <input id="add-gif" type="submit" value="Create" class="button">
+
+            <input id="delete-gif" type="submit" value="Delete" class="button">
+
         </form>
+
+        <!-- Button triggers new movie to be added -->
+
+
         <div id="buttonDisplay"></div>
 
         <div class="row">
@@ -30,89 +39,115 @@
                         </div>
                     </div>
                 </div>
-
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-                <script type="text/javascript">
-                    $(document).ready(function () {
-
-                        var gifs = ["LeBron James", "Michael Jordan", "Dogs", "Race Cars"];
-
-                        function renderButtons() {
-
-                            $("#buttonDisplay").empty();
-
-
-                            for (var i = 0; i < gifs.length; i++) {
-
-                                var btn = $("<button>");
-
-                                btn.addClass("gifs");
-                                btn.attr("data-name", gifs[i]);
-                                btn.text(gifs[i]);
-                                $("#buttonDisplay").append(btn);
-                            }
-                        }
-
-                        $("#add-gif").on("click", function (event) {
-
-                            event.preventDefault();
-
-                            var gif = $("#newGif").val().trim();
-                            gifs.push(gif);
-
-                            //$('#newGif').val('');
-
-
-                            renderButtons();
-                        });
-                        renderButtons();
-
-                        $("button").on("click", function () {
-                            var gifs = $(this).attr("data-name");
-                            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-                                gifs + "&api_key=dfzUuSZLmdo1baA7aiasEYnzisuvxN4n&limit=5";
-
-
-                            $.ajax({
-                                url: queryURL,
-                                method: "GET"
-                            })
-
-                                .then(function (response) {
-                                    var results = response.data;
-
-                                    for (var i = 0; i < results.length; i++) {
-                                        var gifDiv = $("<div class='container'>"); //"item"
-
-                                        var rating = results[i].rating;
-
-                                        var p = $("<p>").text("Rating: " + rating);
-
-                                        var gifImage = $("<img>");
-                                        gifImage.attr("src", results[i].images.fixed_height.url);
-
-                                        gifDiv.append(p);
-                                        gifDiv.append(gifImage);
-
-                                        $("#gif-display").append(gifDiv);
-
-
-                                    }
-
-
-
-
-                                });
-
-
-
-                        });
-                    });
-
-//clear contents of box that info is entered
-                </script>
-
             </div>
+        </div>
+    </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+
+            var gifs = ["LeBron James", "Michael Jordan", "Shaq","Dogs", "Race Cars", "Funny Memes","Trips","Bikes","Beer"];
+
+
+            function renderButtons() {
+
+                $("#buttonDisplay").empty();
+
+
+
+                for (var i = 0; i < gifs.length; i++) {
+
+                    var btn = $("<button>");
+
+                    btn.addClass("button");
+                    btn.attr("data-name", gifs[i]);
+                    btn.text(gifs[i]);
+                    $("#buttonDisplay").append(btn);
+
+                    //code to reset the Gif Creater Form//
+                    $("#gif-form")[0].reset();
+                }
+            }
+
+            $("#add-gif").on("click", function (event) {
+
+                event.preventDefault();
+
+                var gif = $("#newGif").val().trim();
+                gifs.push(gif);
+                console.log(gifs);
+
+                //$('#newGif').val('');
+
+
+                renderButtons();
+            });
+            renderButtons();
+
+            $("button").on("click", function () {
+            
+                var gifs = $(this).attr("data-name");
+                var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
+                    gifs + "&api_key=dfzUuSZLmdo1baA7aiasEYnzisuvxN4n&limit=10";
+
+                console.log(queryURL);
+                $.ajax({
+                    url: queryURL,
+                    method: "GET"
+                })
+
+                    .then(function (response) {
+                        var results = response.data;
+
+                        console.log(results);
+                        for (var i = 0; i < results.length; i++) {
+                            var gifDiv = $("<div class='gif-display'>"); //"item"
+
+                            var rating = results[i].rating;
+
+                            var p = $("<p>").text("Rating: " + rating);
+
+                            var gifImage = $("<img>");
+                            //var gifImageAnimate = 
+                            //CODE TO MAKE IMAGES STILL. UNSURE HOW TO SWITCH BETWEEN ANIMATED AND STILL GIFS
+                            //gifImage.attr("src", results[i].images.fixed_height_still.url);
+                            gifImage.attr("src", results[i].images.fixed_height.url);
+
+                            gifDiv.append(p);
+                            gifDiv.append(gifImage);
+                            gifDiv.addClass("floatingClass");
+
+
+
+                            $("#gif-display").append(gifDiv);
+                            gifImage.empty(gifDiv);
+                        //Trying to add another click event to make the Gifs animate//
+
+
+                            // $("<img>").on("click", function () {
+                            //     gifImage.attr("src", results[i].images.fixed_height.url);
+                            //     gifDiv.html(gifImage);
+                            //     gifDiv.addClass("floatingClass");
+
+                            //     $("#gif-display").append(gifDiv);
+
+
+
+                        
+}
+
+
+                        
+                    
+            });
+
+        });
+        });
+
+    </script>
+
+
     </body>
 
 </html>
