@@ -45,10 +45,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-
+            
 
             var gifs = ["LeBron James", "Michael Jordan", "Shaq","Dogs", "Race Cars", "Funny Memes","Trips","Bikes","Beer"];
-
+            
 
             function renderButtons() {
 
@@ -69,9 +69,9 @@
                     $("#gif-form")[0].reset();
                 }
             }
-
-            $("#add-gif").on("click", function (event) {
-
+            $(document).on('click', "#add-gif", function(){
+//$("#add-gif").on("click", function (event) {
+               // $("button").on('click', "input[name='add-gif']", function(){
                 event.preventDefault();
 
                 var gif = $("#newGif").val().trim();
@@ -84,9 +84,9 @@
                 renderButtons();
             });
             renderButtons();
-
-            $("button").on("click", function () {
-            
+            $(document).on('click', "button", function(){
+//$("button").on("click", function () {
+               // $("button").on('click', "input[name='add-gif']", function(){  //could not get this to work. 
                 var gifs = $(this).attr("data-name");
                 var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
                     gifs + "&api_key=dfzUuSZLmdo1baA7aiasEYnzisuvxN4n&limit=10";
