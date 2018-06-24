@@ -2,7 +2,7 @@
 
 This project allows the user to create a button titled with anything they want. Once the button is created then the user can click on the button and it will display a series of 10 Gifs. The GIFS will appear as a picture but will move once you click on the GIF.
 
-This project is useful becaouse it allows the user to quickly search GIFS on the from the Giphy API.
+This project is useful becaause it allows the user to quickly search GIFS from the Giphy API.
 
 Instructions:
 
