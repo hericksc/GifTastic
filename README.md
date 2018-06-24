@@ -12,3 +12,7 @@ Instructions:
 4.) 10 GIFS will appear on the screen.
 5.) To animate the GIFS click on the picture
 6.) To delete the button and the GIFs click on the "delete" button. 
+
+deployed project link:
+
+https://hericksc.github.io/GifTastic/?
